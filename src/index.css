@@ -1,0 +1,746 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:ital,wght@0,400;0,500;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  
+  --color-brand-bg: #000000;
+  --color-brand-surface: #0a0a0a;
+  --color-brand-surface-2: #141414;
+  --color-brand-border: #1f1f1f;
+  --color-brand-text-primary: #FFFFFF;
+  --color-brand-text-muted: #737373;
+  --color-brand-teal: #FFFFFF;
+  --color-brand-teal-glow: rgba(255, 255, 255, 0.1);
+  --color-brand-danger: #F85149;
+  --color-brand-warning: #F0883E;
+  --color-brand-control: #999999;
+  --color-brand-control-foreground: #111111;
+
+  --slider-fill: #ffffff;
+  --slider-track: rgba(255, 255, 255, 0.1);
+
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+}
+
+:root.light {
+  --color-brand-bg: #ffffff;
+  --color-brand-surface: #f5f5f5;
+  --color-brand-surface-2: #fafafa;
+  --color-brand-border: #dddddd;
+  --color-brand-text-primary: #000000;
+  --color-brand-text-muted: #444444;
+  --color-brand-teal: #000000;
+  --color-brand-teal-glow: rgba(0, 0, 0, 0.05);
+  --color-brand-control: #999999;
+  --color-brand-control-foreground: #111111;
+
+  --slider-fill: #000000;
+  --slider-track: rgba(0, 0, 0, 0.1);
+}
+
+/* Light mode class overrides */
+.light .bg-black, .light .bg-brand-bg { background-color: #ffffff !important; }
+.light .bg-white { background-color: #000000 !important; }
+.light .text-white, .light .text-brand-text-primary { color: #000000 !important; }
+.light .text-black { color: #ffffff !important; }
+
+.light .bg-white\/5, .light .bg-white\/10 { background-color: rgba(0, 0, 0, 0.05) !important; }
+.light .bg-black\/40, .light .bg-black\/60 { background-color: rgba(0, 0, 0, 0.05) !important; }
+
+.light .border-white\/5, .light .border-white\/10, .light .border-brand-border { border-color: rgba(0, 0, 0, 0.08) !important; }
+.light .text-brand-text-muted { color: #333333 !important; }
+.light .text-white\/5, .light .text-white\/10, .light .text-white\/20, .light .text-white\/30, .light .text-white\/40, .light .text-white\/50, .light .text-white\/60, .light .text-white\/70, .light .text-white\/80, .light .text-white\/90 { color: rgba(0, 0, 0, 0.9) !important; }
+
+/* Stronger contrast for very light text in light mode */
+.light .text-white/10, .light .text-white/20, .light .text-white/5 { color: rgba(0, 0, 0, 0.6) !important; }
+.light .opacity-20, .light .opacity-10, .light .opacity-5 { opacity: 0.8 !important; }
+.light .opacity-40, .light .opacity-30 { opacity: 0.9 !important; }
+
+.light .group-hover:text-white:hover, .light .hover:text-white:hover { color: #000000 !important; }
+
+/* FIX 1: Remove hover grey line on widgets in light mode */
+.light .bg-brand-surface:hover, 
+.light .bg-black/40:hover, 
+.light .bg-white/5:hover,
+.light .bg-white/10:hover,
+.light .bg-white/\[0\.03\]:hover,
+.light .bg-brand-surface-2:hover {
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* FIX 2: Live Preview visibility in light mode */
+.light .live-preview-sidebar .w-28.h-28.rounded-full {
+  background-color: #e0e0e0 !important;
+  border: 2px solid #bbb !important;
+  box-shadow: none !important;
+  filter: none !important;
+  color: #111 !important;
+}
+.light .live-preview-sidebar .w-28.h-28.rounded-full span { color: #111 !important; }
+.light .live-preview-sidebar .w-28.h-28.rounded-full .animate-pulse { display: none !important; }
+
+.light .live-preview-sidebar h3 { color: #111 !important; font-style: italic !important; }
+.light .live-preview-sidebar p.text-brand-accent, .light .live-preview-sidebar .text-brand-accent { color: #444 !important; }
+.light .live-preview-sidebar .text-brand-text-muted { color: #333 !important; }
+.light .live-preview-sidebar .text-white { color: #111 !important; }
+
+.light .live-preview-sidebar .bg-white/10, 
+.light .live-preview-sidebar .bg-brand-accent/10,
+.light .live-preview-sidebar .bg-white/5 { 
+  background-color: #e0e0e0 !important; 
+  color: #111 !important; 
+  border: 1px solid #ccc !important; 
+}
+
+.light .live-preview-sidebar .mt-12.w-full.bg-white/5 { 
+  background-color: #e8e8e8 !important; 
+  border-color: #ddd !important; 
+}
+.light .live-preview-sidebar .mt-12.w-full.bg-white/5 .text-white { color: #111 !important; }
+
+/* FIX 3: Toggle visibility in light mode */
+.light .toggle-row { background-color: #f0f0f0 !important; border-color: #ddd !important; }
+.light .toggle-row h4 { color: #111 !important; }
+.light .toggle-row p { color: #555 !important; }
+
+.light .toggle-row button { background-color: #ccc !important; border-color: #bbb !important; box-shadow: none !important; }
+.light .toggle-row button.justify-end { background-color: #111 !important; border-color: #000 !important; } 
+.light .toggle-row button div { background-color: #fff !important; box-shadow: none !important; filter: none !important; }
+
+/* Remove any glow from toggles entirely in light mode */
+.light .toggle-active { box-shadow: none !important; filter: none !important; background: #111 !important; }
+
+
+/* Specific SVG fixes for floating buttons and general icons */
+.light svg { color: inherit; }
+.light .text-white svg { color: #000000 !important; }
+.light .fixed button svg, .light .sticky button svg { color: #000000 !important; }
+.light button.bg-black/40, .light button.bg-black/60 { color: #000000 !important; }
+
+/* Messenger & Calendar Specifics */
+.light .messenger-msg-card p { color: #000000 !important; opacity: 1 !important; }
+.light .messenger-msg-card .text-white/30, .light .messenger-msg-card .text-white/20 { color: #000000 !important; opacity: 0.7 !important; }
+.light .messenger-msg-card .border-white/5 { border-color: rgba(0,0,0,0.1) !important; }
+.light .messenger-msg-card { background-color: rgba(0,0,0,0.03) !important; }
+
+/* Success Alert Card Specifics for Light Mode */
+.light .success-alert-card { background-color: #ffffff !important; border-color: #eeeeee !important; border-width: 2px !important; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important; }
+.light .success-alert-card .text-white { color: #000000 !important; }
+.light .success-alert-card .bg-white/5 { background-color: #f3f4f6 !important; border-color: #e5e7eb !important; }
+.light .success-alert-card .border-t { border-color: #eeeeee !important; }
+
+/* General Success Box Fixes */
+.light div[class*="bg-white/5"][class*="text-white"] {
+  /* This targets inline success boxes like the ones in SwapCard/App.tsx */
+  background-color: #f3f4f6 !important;
+  border-color: #e5e7eb !important;
+  color: #000000 !important;
+}
+.light div[class*="bg-white/5"][class*="text-white"] a { color: #000000 !important; opacity: 0.8 !important; }
+.light div[class*="bg-white/5"][class*="text-white"] a:hover { opacity: 1 !important; text-decoration: underline !important; }
+
+
+/* Wallet Connect Arrow & Text Fix */
+.light .wallet-connect-btn { background-color: #000000 !important; color: #ffffff !important; }
+.light .wallet-connect-btn svg { color: #ffffff !important; stroke: #ffffff !important; opacity: 1 !important; }
+.light .wallet-connect-btn span { color: #ffffff !important; opacity: 1 !important; }
+.light .wallet-connect-btn .opacity-40 { opacity: 1 !important; color: #ffffff !important; }
+
+.light textarea, .light input { color: #000000 !important; }
+.light textarea::placeholder, .light input::placeholder { color: rgba(0, 0, 0, 0.5) !important; }
+
+/* Map specific backgrounds requested */
+.light .bg-\[\#0a0a0a\] { background-color: #f5f5f5 !important; }
+.light .bg-\[\#0f0f0f\], .light .bg-brand-surface-2 { background-color: #fafafa !important; }
+.light .bg-\[\#111111\] { background-color: #f0f0f0 !important; }
+
+.light .bg-\[\#1a1a1a\] { background-color: #e8e8e8 !important; }
+.light .bg-\[\#111\] { background-color: #f0f0f0 !important; }
+.light .bg-\[\#0d0d0d\] { background-color: #efefef !important; }
+.light .bg-\[\#1c1c1c\] { background-color: #e5e5e5 !important; }
+
+/* Additional logic for specific hardcoded colors */
+.light .text-\[\#1a1a1a\], .light .text-\[\#111827\] { color: #000000 !important; }
+.light .border-\[\#222222\], .light .border-\[\#333333\] { border-color: #dddddd !important; }
+
+/* Icon color adjustments */
+.light svg {
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.05));
+}
+.light .shadow-inner { @apply shadow-[inset_0_2px_4px_rgba(0,0,0,0.05)]! }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+* {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Remove numeric input spinners */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* For Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+@layer base {
+  body {
+    @apply bg-brand-bg text-brand-text-primary font-sans antialiased selection:bg-brand-teal/30;
+  }
+}
+
+.brand-glow-hover:hover {
+  box-shadow: 0 0 24px var(--color-brand-teal-glow);
+  @apply border-brand-teal/40;
+}
+
+/* Custom transitions */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(4px);
+}
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms ease-out, transform 200ms ease-out;
+}
+
+/* Tabular numbers for DeFi data */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.light .token-logo-wrapper {
+  background: #1a1a1a !important;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.light .nft-image-container {
+  background: #0a0a0a !important;
+}
+
+@keyframes nft-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.nft-spin { animation: nft-spin 8s linear infinite; }
+
+@keyframes snapshot-scan {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+.snapshot-scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+  box-shadow: 0 0 12px rgba(255,255,255,0.4);
+  animation: snapshot-scan 2.5s ease-in-out infinite;
+}
+.snapshot-scan-line::after {
+  content: "";
+  position: absolute;
+  inset: -4px 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+  filter: blur(4px);
+}
+
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Touch-device-only mobile nav swap.
+   Hamburger shows only on actual touch devices below 768px.
+   Laptops/desktops keep the full desktop nav at any window size. */
+.litdex-desktop-nav { display: block; }
+.litdex-mobile-hamburger { display: none; }
+.litdex-mobile-menu { display: none; }
+@media (max-width: 767px) and (hover: none) and (pointer: coarse) {
+  .litdex-desktop-nav { display: none; }
+  .litdex-mobile-hamburger { display: flex; }
+  .litdex-mobile-menu { display: flex; }
+}
+
+
+/* Hide nav when in-game */
+body.hide-nav .litdex-desktop-nav,
+body.hide-nav .litdex-mobile-hamburger { display: none !important; }
+
+
+/* Math Slash light-mode polish */
+.light .math-slash-page .bg-brand-surface {
+  background-color: #f5f5f5 !important;
+  border-color: #e0e0e0 !important;
+}
+.light .math-slash-page .bg-brand-surface-2 {
+  background-color: #ececec !important;
+  border-color: #d0d0d0 !important;
+}
+.light .math-slash-page .text-brand-text-muted,
+.light .math-slash-page .uppercase {
+  color: #111 !important;
+}
+.light .math-slash-page .text-brand-text-primary {
+  color: #000 !important;
+}
+/* Center game panel: keep canvas dark in both themes for an intentional look */
+.math-slash-page .game-canvas-wrap {
+  background: #0a0a0a;
+  border-radius: 12px;
+  border: 1px solid #1f1f1f;
+  overflow: hidden;
+}
+.light .math-slash-page .game-canvas-wrap {
+  border-color: #e5e5e5;
+}
+.light .math-slash-page .game-canvas-wrap .text-brand-text-muted,
+.light .math-slash-page .game-canvas-wrap .text-brand-text-primary {
+  color: #fff !important;
+}
+.light .math-slash-page .game-canvas-wrap .font-mono.font-bold {
+  background: #fff !important;
+  color: #000 !important;
+}
+
+/* Games page MATH SLASH dark card — keep dark in both themes; preserve white text in light */
+.light .games-card-dark {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.light .games-card-dark .text-white,
+.light .games-card-dark h3,
+.light .games-card-dark p {
+  color: #fff !important;
+}
+.light .games-card-dark .bg-white {
+  background-color: #fff !important;
+}
+.light .games-card-dark .text-black {
+  color: #000 !important;
+}
+
+/* Global Convert Stats panel — keep dark in both themes, preserve readable text in light */
+.light .math-slash-page .global-convert-stats {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.light .math-slash-page .global-convert-stats .text-white,
+.light .math-slash-page .global-convert-stats .uppercase {
+  color: #fff !important;
+}
+
+
+/* Math Slash: keep dark cards readable in light mode */
+.light .convert-popup-card,
+.light .convert-popup-card * {
+  color: #fff !important;
+}
+.light .convert-popup-card .text-\[\#555\] { color: #888 !important; }
+.light .convert-popup-card input {
+  background: #000 !important;
+  color: #fff !important;
+  border-color: #1f1f1f !important;
+}
+/* Convert button keeps its inline white bg + black text */
+.light .convert-popup-card button.font-bold { color: #000 !important; }
+.light .daily-limit-card,
+.light .daily-limit-card * {
+  color: #fff !important;
+}
+.light .daily-limit-card .text-\[10px\] { color: #888 !important; }
+
+/* === Math Slash — mobile/tablet only fixes (<1024px) === */
+/* Default (desktop >=1024px) keeps existing EXIT text label */
+.ms-exit-btn { padding: 8px 14px; }
+.ms-exit-btn .ms-exit-x { display: none; }
+.ms-exit-btn .ms-exit-label { display: inline; }
+
+@media (max-width: 1023px) {
+  /* Lock body scroll while game overlay is active */
+  body.hide-nav { overflow: hidden; touch-action: none; overscroll-behavior: none; }
+
+  /* Small ✕ button 16px from edge */
+  .ms-exit-btn {
+    width: 36px; height: 36px; padding: 0 !important;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 16px; line-height: 1;
+    top: 16px !important; right: 16px !important;
+  }
+  .ms-exit-btn .ms-exit-label { display: none; }
+  .ms-exit-btn .ms-exit-x { display: inline; }
+
+  /* Bigger centered score */
+  .ms-go-score { font-size: 56px !important; margin-bottom: 24px !important; }
+
+  /* Stack Play Again / Exit vertically, full width */
+  .ms-go-actions { flex-direction: column !important; gap: 12px !important; }
+  .ms-go-actions > button { width: 100%; min-height: 52px !important; font-size: 13px !important; }
+
+  /* Game card uses full viewport */
+  .ms-go-card { max-width: none !important; min-height: 100dvh; display: flex; flex-direction: column; justify-content: center; border-radius: 0 !important; border: none !important; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(100%); }
+  to { transform: translateX(-100%); }
+}
+
+/* ---------- Champions NFT section (ported styles, scoped) ---------- */
+.champions-root {
+  background: transparent;
+  color: var(--color-brand-text-primary);
+}
+.champions-root .btn-text {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.champions-root .btn-heading {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.champions-root .heading-ul { display: inline-block; }
+.champions-root .heading-ul::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 3px;
+  margin: 0.65rem 0 0;
+  border-radius: 9999px;
+  background: #0038ff;
+}
+@media (min-width: 768px) {
+  .champions-root .btn-heading { font-size: 1.5rem; }
+}
+.champions-root .btn {
+  --bink: #000000;
+  --bsurf: #ccff00;
+  position: relative;
+  isolation: isolate;
+  padding: 13px 24px;
+  border: 1px solid var(--bink);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--bink);
+  cursor: pointer;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.champions-root .btn,
+.champions-root .btn-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.champions-root .btn-label {
+  position: relative;
+  z-index: 2;
+  display: inline-block;
+  transition: inherit;
+}
+.champions-root .btn::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background: var(--bink);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.4s ease;
+}
+.champions-root .fx-9 { overflow: visible; }
+.champions-root .fx-9::before { display: none; }
+.champions-root .fx-9:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 0 -2px color-mix(in srgb, var(--bink) 30%, transparent);
+}
+.champions-root .btn-blue.fx-9:hover,
+.champions-root .btn-blue.fx-9:active {
+  box-shadow: 0 8px 0 -2px color-mix(in srgb, #000000 30%, transparent);
+}
+.champions-root .btn:disabled,
+.champions-root .btn[aria-disabled="true"] { cursor: not-allowed; opacity: 0.4; }
+.champions-root .btn:disabled:hover,
+.champions-root .btn[aria-disabled="true"]:hover { transform: none; box-shadow: none; }
+.champions-root .btn-pill { border-radius: 8px; }
+.champions-root .btn-lime {
+  --bink: var(--color-brand-control-foreground);
+  --bsurf: var(--color-brand-control);
+  background-color: var(--color-brand-control);
+  border-color: var(--color-brand-control);
+}
+.champions-root .btn-blue {
+  --bink: var(--color-brand-text-primary);
+  --bsurf: var(--color-brand-surface-2);
+  background-color: var(--color-brand-surface-2);
+  border-color: var(--color-brand-border);
+}
+.champions-root .btn-ghost {
+  --bink: var(--color-brand-text-primary);
+  --bsurf: transparent;
+  background-color: transparent;
+  border-color: var(--color-brand-border);
+}
+.champions-root .btn-white {
+  --bink: var(--color-brand-control-foreground);
+  --bsurf: var(--color-brand-text-primary);
+  background-color: var(--color-brand-text-primary);
+}
+
+/* --------------------------------------------------------------------
+ * Theme bridge.
+ *
+ * The Champions components were written for their own standalone site
+ * (blue #0038FF canvas, lime #CCFF00 accent, white cards, black text)
+ * with those colours hardcoded as Tailwind utilities across ~2000 lines.
+ * Rather than rewrite every component, the utilities are re-pointed at
+ * LitDEX's brand tokens here, scoped to .champions-root so nothing else
+ * on the site is touched. Because these are the same CSS variables the
+ * rest of LitDEX uses, this section also follows the light/dark toggle
+ * for free.
+ * ------------------------------------------------------------------ */
+.champions-root .heading-ul::after { background: var(--color-brand-control); }
+
+.champions-root .bg-white,
+.champions-root .bg-\[\#F4F4F2\] { background-color: var(--color-brand-surface) !important; }
+.champions-root .bg-black { background-color: var(--color-brand-bg) !important; }
+.champions-root .bg-\[\#0038FF\] { background-color: var(--color-brand-surface-2) !important; }
+.champions-root .bg-\[\#CCFF00\] { background-color: var(--color-brand-control) !important; }
+
+.champions-root .text-black,
+.champions-root .text-white { color: var(--color-brand-text-primary) !important; }
+.champions-root .text-black\/60,
+.champions-root .text-black\/50,
+.champions-root .text-black\/40 { color: var(--color-brand-text-muted) !important; }
+.champions-root .text-\[\#0038FF\],
+.champions-root .text-\[\#CCFF00\] { color: var(--color-brand-control) !important; }
+
+.champions-root .border-black\/20,
+.champions-root .border-black\/15,
+.champions-root .border-black\/10,
+.champions-root .border-black\/5,
+.champions-root .border-\[\#0038FF\] { border-color: var(--color-brand-border) !important; }
+
+/* MintCard uses a light gradient panel — flatten it onto the dark surface. */
+.champions-root .from-slate-50,
+.champions-root .via-white,
+.champions-root .to-indigo-50 { --tw-gradient-from: var(--color-brand-surface); --tw-gradient-via: var(--color-brand-surface); --tw-gradient-to: var(--color-brand-surface); }
+.champions-root .bg-gradient-to-br { background-image: none !important; background-color: var(--color-brand-surface) !important; }
+
+/* Form controls inside the section (rarity / status / sort selects). */
+.champions-root select {
+  background-color: var(--color-brand-surface-2) !important;
+  border-color: var(--color-brand-border) !important;
+  color: var(--color-brand-text-primary) !important;
+}
+.champions-root select option {
+  background-color: var(--color-brand-surface-2);
+  color: var(--color-brand-text-primary);
+}
+
+.champions-panel {
+  border: 1px solid var(--color-brand-border);
+  background: var(--color-brand-bg);
+}
+.champions-root .champions-empty {
+  border-color: var(--color-brand-border);
+  background: var(--color-brand-surface);
+  color: var(--color-brand-text-primary);
+}
+
+/* Mint CTAs and the Champions/My Points/Levels tabs reuse the exact look of the
+   "Trade Your Champions" button (.nft-action-button) so the whole NFT page reads
+   as one component set instead of two ported design languages. */
+.champions-cta,
+.champions-tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 58px;
+  border: 1px solid var(--color-brand-control);
+  border-radius: 8px;
+  background: var(--color-brand-control);
+  color: var(--color-brand-control-foreground);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.champions-cta { width: 100%; }
+.champions-cta--auto { width: auto; padding-inline: 32px; }
+.champions-cta:hover:not(:disabled),
+.champions-tab:hover { transform: translateY(-2px); filter: brightness(1.08); }
+.champions-cta:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+/* Inactive tab = outlined version of the same button. */
+.champions-tab {
+  min-height: 46px;
+  padding-inline: 26px;
+  cursor: pointer;
+}
+.champions-tab[data-active="false"] {
+  background: transparent;
+  border-color: var(--color-brand-border);
+  color: var(--color-brand-text-primary);
+}
+
+/* Levels/Champions panels still carry the standalone site's black outlines and
+   very round corners — square them off onto LitDEX's 8px language. */
+.champions-root .border-black { border-color: var(--color-brand-border) !important; }
+.champions-root .rounded-\[2\.5rem\],
+.champions-root .rounded-\[2rem\] { border-radius: 8px !important; }
+
+/* NftCard carried a translucent blue wash from the standalone site. */
+.champions-root .bg-\[\#0038FF\]\/5 { background-color: var(--color-brand-surface) !important; }
+.champions-root .border-\[\#0038FF\]\/15 { border-color: var(--color-brand-border) !important; }
+.champions-root .bg-\[\#0038FF\]\/20 { background-color: var(--color-brand-surface-2) !important; }
+
+@media (prefers-reduced-motion: reduce) {
+  .champions-cta, .champions-tab { transition: none; }
+  .champions-cta:hover, .champions-tab:hover { transform: none; }
+}
+
+/* NFT video showcase */
+.nft-showcase-page {
+  background: var(--color-brand-bg);
+}
+.nft-showcase-video {
+  display: block;
+  aspect-ratio: 8 / 3;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 8px;
+  background: var(--color-brand-bg);
+  object-fit: cover;
+}
+.nft-action-panel {
+  display: flex;
+  min-height: 300px;
+  flex-direction: column;
+  align-items: center;
+  padding: 42px 40px 40px;
+  border: 1px solid var(--color-brand-border);
+  border-radius: 8px;
+  background: var(--color-brand-surface);
+  color: var(--color-brand-text-primary);
+  text-align: center;
+}
+.nft-action-heading,
+.nft-action-description,
+.nft-action-button {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+.nft-action-heading {
+  font-size: clamp(1.25rem, 2vw, 2rem);
+  font-weight: 700;
+}
+.nft-action-rule {
+  width: 100%;
+  height: 1px;
+  margin-top: 18px;
+  background: var(--color-brand-border);
+}
+.nft-action-description {
+  margin-top: 14px;
+  color: var(--color-brand-text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+.nft-action-button {
+  display: inline-flex;
+  width: 100%;
+  min-height: 58px;
+  margin-top: auto;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid var(--color-brand-control);
+  border-radius: 8px;
+  background: var(--color-brand-control);
+  color: var(--color-brand-control-foreground);
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.nft-action-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+.nft-action-button:focus-visible {
+  outline: 2px solid var(--color-brand-text-primary);
+  outline-offset: 3px;
+}
+@media (max-width: 767px) {
+  .nft-showcase-page { padding-inline: 12px; }
+  .nft-showcase-video { aspect-ratio: 16 / 9; object-fit: contain; }
+  .nft-action-panel { min-height: 250px; padding: 28px 20px 24px; }
+  .nft-action-rule { margin-top: 14px; }
+  .nft-action-button { min-height: 54px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nft-action-button { transition: none; }
+  .nft-action-button:hover { transform: none; }
+}
+
+/* ---------- In-app docs markdown rendering (/docs) ---------- */
+.docs-markdown { color: var(--color-brand-text-primary); font-size: 0.95rem; line-height: 1.75; }
+.docs-markdown h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.01em; margin: 0 0 1rem; }
+.docs-markdown h2 { font-size: 1.4rem; font-weight: 700; margin: 2.25rem 0 0.9rem; padding-top: 1.25rem; border-top: 1px solid var(--color-brand-border); }
+.docs-markdown h2:first-child { margin-top: 0; padding-top: 0; border-top: none; }
+.docs-markdown h3 { font-size: 1.1rem; font-weight: 700; margin: 1.75rem 0 0.6rem; }
+.docs-markdown p { margin: 0.9rem 0; color: var(--color-brand-text-muted); }
+.docs-markdown strong { color: var(--color-brand-text-primary); font-weight: 700; }
+.docs-markdown a { color: var(--color-brand-control); text-decoration: underline; text-underline-offset: 2px; }
+.docs-markdown ul, .docs-markdown ol { margin: 0.9rem 0; padding-left: 1.4rem; color: var(--color-brand-text-muted); }
+.docs-markdown ul { list-style: disc; }
+.docs-markdown ol { list-style: decimal; }
+.docs-markdown li { margin: 0.35rem 0; }
+.docs-markdown li::marker { color: var(--color-brand-text-muted); }
+.docs-markdown blockquote { margin: 1.25rem 0; padding: 0.1rem 1.1rem; border-left: 3px solid var(--color-brand-control); background: var(--color-brand-surface-2); border-radius: 0 8px 8px 0; color: var(--color-brand-text-muted); }
+.docs-markdown blockquote p { margin: 0.7rem 0; }
+.docs-markdown code { font-family: ui-monospace, "JetBrains Mono", monospace; font-size: 0.85em; background: var(--color-brand-surface-2); border: 1px solid var(--color-brand-border); border-radius: 4px; padding: 0.15em 0.4em; color: var(--color-brand-text-primary); }
+.docs-markdown pre { margin: 1.1rem 0; padding: 1rem 1.1rem; background: var(--color-brand-surface-2); border: 1px solid var(--color-brand-border); border-radius: 8px; overflow-x: auto; }
+.docs-markdown pre code { background: none; border: none; padding: 0; }
+.docs-markdown table { width: 100%; margin: 1.1rem 0; border-collapse: collapse; font-size: 0.88em; display: block; overflow-x: auto; }
+.docs-markdown th, .docs-markdown td { border: 1px solid var(--color-brand-border); padding: 0.55rem 0.8rem; text-align: left; }
+.docs-markdown th { background: var(--color-brand-surface-2); color: var(--color-brand-text-primary); font-weight: 700; white-space: nowrap; }
+.docs-markdown td { color: var(--color-brand-text-muted); }
+.docs-markdown hr { border: none; border-top: 1px solid var(--color-brand-border); margin: 2rem 0; }
