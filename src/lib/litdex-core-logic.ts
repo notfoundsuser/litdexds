@@ -286,8 +286,8 @@ export const ROUTERS: Record<RouterKey, { address: string; label: string; factor
   wolfdex:  { address: WOLFDEX_ROUTER,  label: "WolfDEX", factory: WOLFDEX_FACTORY },
 };
 
-const COIN_LOGO_BASE = "https://raw.githubusercontent.com/zorodas/friendly-greetings/main/public/coins";
-const WDEX_LOGO = "https://raw.githubusercontent.com/k3kobraprro/hello-world-hub/main/public/coins/wdex-logo.png";
+const COIN_LOGO_BASE = "/coins";
+const WDEX_LOGO = "/coins/wdex-logo.png";
 
 export const POPULAR_TOKENS: Token[] = [
   { address: "0xFC43ABE529CDC61B7F0aa2e677451AFd83d2B304", symbol: "USDC",    image: `${COIN_LOGO_BASE}/usdc.jpg` },

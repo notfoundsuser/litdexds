@@ -39,8 +39,8 @@ const ERC20_ABI = [
   "function balanceOf(address) view returns(uint256)",
 ];
 
-const ZKLTC_LOGO = "https://raw.githubusercontent.com/zorodas/friendly-greetings/main/public/coins/zkltc.jpg";
-const ETH_LOGO = "https://raw.githubusercontent.com/mmrdasachin/your-daily-hello/main/public/coins/sepolia_eth_logo.png";
+const ZKLTC_LOGO = "/coins/zkltc.jpg";
+const ETH_LOGO = "/coins/sepolia_eth_logo.png";
 
 type ChainKey = "litvm" | "sepolia";
 type BridgeToken = {

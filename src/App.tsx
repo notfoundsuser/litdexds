@@ -97,7 +97,7 @@ const ConnectWalletPrompt = ({
 
 const LogoLD = ({ className = "", size = 20 }: { className?: string; size?: number }) => (
   <img
-    src="https://raw.githubusercontent.com/notfoundsuser/kindred-spirit/main/public/coins/web_logo.png"
+    src="/coins/web_logo.png"
     alt="LitDEX"
     style={{ width: size * 1.6, height: size * 1.6 }}
     className={cn("object-contain select-none", className)}
