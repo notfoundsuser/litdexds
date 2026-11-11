@@ -3,8 +3,8 @@ import { BrowserProvider, Contract, JsonRpcProvider, parseEther, formatEther } f
 
 export const HUB_CHAIN_ID = 4441;
 export const HUB_CHAIN_HEX = "0x1159";
-export const HUB_RPC = "https://liteforge.rpc.caldera.xyz/http";
-export const HUB_EXPLORER = "https://liteforge.explorer.caldera.xyz";
+export const HUB_RPC = "https://rpc.testnet.liteforge.zeeve.net";
+export const HUB_EXPLORER = "https://explorer.testnet.liteforge.zeeve.net";
 export const HUB_API_BASE = "http://155.133.23.14:3005";
 
 export const HUB_ADDR = {

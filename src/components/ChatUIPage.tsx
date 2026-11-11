@@ -48,7 +48,7 @@ const ENV_RPCS = (
   ?.split(",")
   .map((s) => s.trim())
   .filter(Boolean) ?? [];
-const DEFAULT_RPC = "https://liteforge.rpc.caldera.xyz/http";
+const DEFAULT_RPC = "https://rpc.testnet.liteforge.zeeve.net";
 const RPC_POOL: string[] = Array.from(new Set([...ENV_RPCS, DEFAULT_RPC]));
 // Mutable cursor — moves to the next URL whenever a request fails.
 let rpcIndex = 0;
@@ -284,7 +284,7 @@ const SENT_DISPLAY_RE = /^💸\s*Sent\s+([\d]+(?:\.\d+)?)\s+([A-Za-z][\w.]*)\s+t
 const SLASH_SEND_FULL_RE = /^\s*\/send\s+([A-Za-z][\w.]*)\s+([\d]+(?:\.\d+)?)\s+to\s+([\w-]+\.lit)\s*$/i;
 const REPLY_TAG_RE = /^@(0x[a-fA-F0-9]{2,8}(?:\.{2,3}[a-fA-F0-9]{2,8})?|[\w-]+\.lit)\s+/;
 const REPLY_ID_RE = /^\[replyTo:([^\]]+)\]\s*/;
-const EXPLORER_TX = (hash: string) => `https://liteforge.explorer.caldera.xyz/tx/${hash}`;
+const EXPLORER_TX = (hash: string) => `https://explorer.testnet.liteforge.zeeve.net/tx/${hash}`;
 const TOKEN_LIST = ["ZKLTC","USDC","USDT","PEPE","WETH","WBTC","LDEX","ZKPEPE","ZKETH","LDTOAD","USDC.T","YURI","CHAWLEE","LESTER"];
 const parseUnitsStr = (value: string, decimals: number) => {
   const [whole = "0", fraction = ""] = value.trim().split(".");

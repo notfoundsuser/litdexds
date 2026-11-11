@@ -3012,7 +3012,7 @@ const CasinoWalletModal = ({ open, onClose, wallet }: { open: boolean; onClose: 
           <div className="mt-3 px-3 py-2 rounded-lg bg-[rgba(62,207,142,0.08)] border border-[rgba(62,207,142,0.3)] text-[#3ecf8e] text-[11px]">
             ✓ {tab === 'deposit' ? 'Deposit' : 'Withdraw'} confirmed · new balance: {success.balance.toLocaleString()}
             {success.txHash && (
-              <a href={`https://liteforge.explorer.caldera.xyz/tx/${success.txHash}`} target="_blank" rel="noreferrer" className="block mt-1 underline">
+              <a href={`https://explorer.testnet.liteforge.zeeve.net/tx/${success.txHash}`} target="_blank" rel="noreferrer" className="block mt-1 underline">
                 tx {success.txHash.slice(0, 10)}…{success.txHash.slice(-6)}
               </a>
             )}
@@ -3188,7 +3188,7 @@ const MathSlashPage = ({ onBack }: { onBack: () => void }) => {
               type: 'game',
               title: 'Game Over',
               message: `Scored ${score} · ${endData.zkltcSent} zkLTC sent`,
-              link: endData?.explorerUrl || (endData?.txHash ? `https://liteforge.explorer.caldera.xyz/tx/${endData.txHash}` : undefined),
+              link: endData?.explorerUrl || (endData?.txHash ? `https://explorer.testnet.liteforge.zeeve.net/tx/${endData.txHash}` : undefined),
             });
           } catch {}
         }
@@ -3308,7 +3308,7 @@ const MathSlashPage = ({ onBack }: { onBack: () => void }) => {
     const data = await r.json().catch(() => ({}));
     if (!r.ok || data?.success === false) throw new Error(data?.error || data?.message || 'Failed to submit score');
     const zkltcSent = String(data?.zkltcSent ?? (score * RATE).toFixed(8));
-    const explorerUrl = data?.explorerUrl || (data?.txHash ? `https://liteforge.explorer.caldera.xyz/tx/${data.txHash}` : undefined);
+    const explorerUrl = data?.explorerUrl || (data?.txHash ? `https://explorer.testnet.liteforge.zeeve.net/tx/${data.txHash}` : undefined);
     try {
       addNotif(lowerAddr, {
         type: 'game',
@@ -3483,7 +3483,7 @@ const MathSlashPage = ({ onBack }: { onBack: () => void }) => {
                         // `claimed_<hash>`. Show as the proof for that game.
                         const tx = String(g.tx_hash || '');
                         const claimedHash = tx.startsWith('claimed_') ? tx.slice('claimed_'.length) : null;
-                        const url = claimedHash ? `https://liteforge.explorer.caldera.xyz/tx/${claimedHash}` : undefined;
+                        const url = claimedHash ? `https://explorer.testnet.liteforge.zeeve.net/tx/${claimedHash}` : undefined;
                         const score = Number(g.score ?? 0);
                         const ptsRow = Math.floor(score * 0.3);
                         return (
@@ -3718,7 +3718,7 @@ const PumpDumpPage = ({ onBack }: { onBack: () => void }) => {
               type: 'game',
               title: 'Pump or Dump · Cashed Out',
               message: `Pot ${pot} PTS · Points paused`,
-              link: d?.txInfo?.explorerUrl || (d?.txInfo?.txHash ? `https://liteforge.explorer.caldera.xyz/tx/${d.txInfo.txHash}` : undefined),
+              link: d?.txInfo?.explorerUrl || (d?.txInfo?.txHash ? `https://explorer.testnet.liteforge.zeeve.net/tx/${d.txInfo.txHash}` : undefined),
             });
           } else if (d.reason === 'wrong') {
             addNotif(lowerAddr, {

@@ -25,9 +25,9 @@ export const LITVM: ChainConfig = {
   chainId: 4441,
   chainIdHex: "0x1159",
   chainName: "LitVM",
-  rpcUrls: ["https://liteforge.rpc.caldera.xyz/http"],
+  rpcUrls: ["https://rpc.testnet.liteforge.zeeve.net"],
   nativeCurrency: { name: "zkLTC", symbol: "zkLTC", decimals: 18 },
-  blockExplorerUrls: ["https://liteforge.explorer.caldera.xyz"],
+  blockExplorerUrls: ["https://explorer.testnet.liteforge.zeeve.net"],
 };
 
 export const KNOWN_CHAINS: ChainConfig[] = [BASE_MAINNET, LITVM];

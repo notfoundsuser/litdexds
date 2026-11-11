@@ -31,8 +31,8 @@ import { getDefaultConfig } from "@rainbow-me/rainbowkit";
 /* =====================================================================
  * SECTION 1 — CHAIN / NETWORK CONSTANTS
  * ===================================================================== */
-export const RPC_URL = "https://liteforge.rpc.caldera.xyz/http";
-export const EXPLORER_URL = "https://liteforge.explorer.caldera.xyz";
+export const RPC_URL = "https://rpc.testnet.liteforge.zeeve.net";
+export const EXPLORER_URL = "https://explorer.testnet.liteforge.zeeve.net";
 export const LITVM_CHAIN_ID = 4441;
 
 export const litvmChain = defineChain({
